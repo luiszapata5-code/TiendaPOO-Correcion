@@ -19,16 +19,16 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private IClienteServicio clienteServicio;
     private IProductoServicio productoServicio;
     private IVentaServicio ventaServicio;
-      private javax.swing.JTabbedPane pestanas;
+    
     public VentanaPrincipal() {
         clienteServicio = new ClienteServicio();
         productoServicio = new ProductoService();
          ventaServicio = new VentaServicio();
         initComponents();
         
-     pestanas.addTab("Clientes",  new PanelClientes(clienteServicio));
-    pestanas.addTab("Productos", new PanelProducto(productoServicio));
-    pestanas.addTab("Ventas",    new PanelVenta(clienteServicio, productoServicio, ventaServicio));
+   PanelVentanaPrincipal.addTab("Clientes",  new PanelClientes(clienteServicio));
+   PanelVentanaPrincipal.addTab("Productos", new PanelProducto(productoServicio));
+   PanelVentanaPrincipal.addTab("Ventas",    new PanelVenta(clienteServicio, productoServicio, ventaServicio));
         
     }
 
@@ -41,26 +41,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelCliente = new javax.swing.JTabbedPane();
-        jTabbedPane2 = new javax.swing.JTabbedPane();
-        PanelProducto = new javax.swing.JTabbedPane();
-        PanelVenta = new javax.swing.JTabbedPane();
+        PanelVentanaPrincipal = new javax.swing.JTabbedPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        PanelCliente.addTab("Clientes", jTabbedPane2);
-        PanelCliente.addTab("Productos", PanelProducto);
-        PanelCliente.addTab("Ventas", PanelVenta);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(PanelVentanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(PanelCliente, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(PanelVentanaPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
 
         pack();
@@ -84,9 +77,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTabbedPane PanelCliente;
-    private javax.swing.JTabbedPane PanelProducto;
-    private javax.swing.JTabbedPane PanelVenta;
-    private javax.swing.JTabbedPane jTabbedPane2;
+    private javax.swing.JTabbedPane PanelVentanaPrincipal;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,13 +9,14 @@ public class Venta {
     private int id;
     private Cliente cliente;
     private double total;
-    private ArrayList<DetalleVenta> sobre;
+    private ArrayList<DetalleVenta> detalle;
 
-    public Venta(int id, Cliente cliente,  double total,ArrayList<DetalleVenta> sobre){
+    public Venta(int id, Cliente cliente,  double total,ArrayList<DetalleVenta> detalle){
         this.id = id;
         this.cliente = cliente;
         this.total = total;
-        this.sobre= sobre;
+        this.detalle = new ArrayList<>(detalle);
+        
     }
     
     public int getId(){
@@ -44,11 +45,11 @@ public class Venta {
     }
 
     public ArrayList<DetalleVenta> getSobreLaVenta() {
-        return sobre;
+        return detalle;
     }
 
     public void setSobreLaVenta(ArrayList<DetalleVenta> sobre) {
-        this.sobre = sobre;
+        this.detalle = sobre;
     }
     
 }

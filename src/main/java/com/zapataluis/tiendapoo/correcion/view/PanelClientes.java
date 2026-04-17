@@ -285,7 +285,7 @@ if (confirmacion == JOptionPane.YES_OPTION) {
             return;
         }
 
-        boolean exito = clienteServicio.EditarCliente(edad, nombre, edad, correo);
+        boolean exito = clienteServicio.EditarCliente(idClienteEnEdicion,nombre, edad, correo);
 
         if (exito) {
             JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente.");

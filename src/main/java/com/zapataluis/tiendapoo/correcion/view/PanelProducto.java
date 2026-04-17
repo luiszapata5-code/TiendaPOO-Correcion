@@ -31,7 +31,24 @@ public class PanelProducto extends javax.swing.JPanel {
         modelo.addColumn("Stock");
         tablaProductos.setModel(modelo);
         cargarTabla();
+        tablaProductos.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+        cargarProductoEnFormulario();
     }
+});
+    }
+    
+    private void cargarProductoEnFormulario() {
+    int fila = tablaProductos.getSelectedRow();
+    if (fila == -1) return;
+
+    idProductoEnEdicion = (int) modelo.getValueAt(fila, 0);
+    txtNombre.setText(modelo.getValueAt(fila, 1).toString());
+    txtTalla.setText(modelo.getValueAt(fila, 2).toString());
+    txtColor.setText(modelo.getValueAt(fila, 3).toString());
+    txtPrecio.setText(modelo.getValueAt(fila, 4).toString());
+    txtStock.setText(modelo.getValueAt(fila, 5).toString());
+}
 
     public void cargarTabla() {
         modelo.setRowCount(0);
@@ -306,7 +323,7 @@ if (confirmacion == JOptionPane.YES_OPTION) {
             return;
         }
 
-        boolean exito = productoServicio.editarProducto(WIDTH, codigo, nombre, talla, color, precio, stock);
+        boolean exito = productoServicio.editarProducto(idProductoEnEdicion, codigo, nombre, talla, color, precio, stock);
 
         if (exito) {
             JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente.");
