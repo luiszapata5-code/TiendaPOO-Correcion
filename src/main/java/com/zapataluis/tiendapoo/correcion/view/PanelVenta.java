@@ -7,6 +7,10 @@ package com.zapataluis.tiendapoo.correcion.view;
 import com.zapataluis.tiendapoo.correcion.model.Producto;
 import com.zapataluis.tiendapoo.correcion.model.Venta;
 import com.zapataluis.tiendapoo.correcion.model.Cliente;
+import com.zapataluis.tiendapoo.correcion.model.DetalleVenta;
+import com.zapataluis.tiendapoo.servicio.IClienteServicio;
+import com.zapataluis.tiendapoo.servicio.IProductoServicio;
+import com.zapataluis.tiendapoo.servicio.IVentaServicio;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -18,17 +22,21 @@ import javax.swing.table.DefaultTableModel;
 public class PanelVenta extends javax.swing.JPanel {
 
     
-    private final SistemaVentas sistema;
+    
     private final DefaultTableModel modeloCarrito;
     private final DefaultTableModel modeloVentas;
+    private final IClienteServicio clienteServicio;
+    private final IProductoServicio productoServicio;
+    private final IVentaServicio ventaServicio;
+    private final ArrayList<DetalleVenta> carritoTemporal = new ArrayList<>();
 
-    // Lista temporal que acumula productos antes de confirmar la venta
-    private final ArrayList<SobreLaVenta> carritoTemporal = new ArrayList<>();
-    // Cliente encontrado por ID para la venta actual
+   
     private Cliente clienteActual = null;
 
-    public PanelVenta(SistemaVentas sistema) {
-        this.sistema = sistema;
+    public PanelVenta(IClienteServicio clienteServicio,IProductoServicio productoServicio,IVentaServicio ventaServicio) {
+         this.clienteServicio = clienteServicio;
+         this.productoServicio = productoServicio;
+         this.ventaServicio = ventaServicio;
         initComponents();
         txtId.setPreferredSize(new java.awt.Dimension(200, 25));
         txtCantidad.setPreferredSize(new java.awt.Dimension(200, 25));
@@ -56,7 +64,7 @@ public class PanelVenta extends javax.swing.JPanel {
     }
     public void cargarTablaVentas() {
         modeloVentas.setRowCount(0);
-        for (Venta v : sistema.getVentas()) {
+        for (Venta v : ventaServicio.getVentas()) {
             Object[] fila = {
                 v.getId(),
                 v.getCliente().getNombre(),
@@ -70,7 +78,7 @@ public class PanelVenta extends javax.swing.JPanel {
     // Actualiza la tabla del carrito con los productos temporales
     private void actualizarTablaCarrito() {
         modeloCarrito.setRowCount(0);
-        for (SobreLaVenta s : carritoTemporal) {
+        for (DetalleVenta s : carritoTemporal) {
             Producto p = s.getProducto();
             double subtotal = p.getPrecio() * s.getCantidad();
             Object[] fila = {
@@ -276,33 +284,20 @@ public class PanelVenta extends javax.swing.JPanel {
             int cantidad = Integer.parseInt(txtCantidad.getText().trim());
             String nombre = txtNombreProducto.getText().trim();
 
-            // Buscar cliente
-            clienteActual = sistema.buscarClientePorId(idUsuario);
-            if (clienteActual == null) {
-                JOptionPane.showMessageDialog(this, "Cliente NO encontrado.");
-                txtId.setText("");
-                return;
-            }
+           clienteActual = clienteServicio.buscarClientePorId(idUsuario);
+           Producto p = productoServicio.buscarProductoPorNombre(nombre);
 
-            // Buscar producto
-            Producto p = sistema.buscaProductoPorNombre(nombre);
-            if (p == null) {
-                JOptionPane.showMessageDialog(this, "Producto no encontrado.");
-                return;
-            }
+           // Verificar stock acumulado en carrito (bug de doble reserva)
+           int yaEnCarrito = carritoTemporal.stream()
+           .filter(d -> d.getProducto().getId() == p.getId())
+           .mapToInt(DetalleVenta::getCantidad)
+           .sum();
+           if (cantidad + yaEnCarrito > p.getStock()) {
+             JOptionPane.showMessageDialog(this, "Stock insuficiente. Ya tienes " + yaEnCarrito + " en carrito.");
+             return;
+           }
 
-            // Validar stock antes de agregar al carrito
-            if (cantidad <= 0) {
-                JOptionPane.showMessageDialog(this, "La cantidad debe ser mayor a 0.");
-                return;
-            }
-            if (cantidad > p.getStock()) {
-                JOptionPane.showMessageDialog(this, "Stock insuficiente. Disponible: " + p.getStock());
-                return;
-            }
-
-           
-            carritoTemporal.add(new SobreLaVenta(p, cantidad));
+            carritoTemporal.add(new DetalleVenta(p, cantidad)); 
             actualizarTablaCarrito();
             txtCantidad.setText("");
             txtNombreProducto.setText("");
@@ -324,7 +319,7 @@ public class PanelVenta extends javax.swing.JPanel {
             return;
         }
 
-        boolean exito = sistema.registrarVenta(clienteActual, carritoTemporal);
+        boolean exito = ventaServicio.registrarVenta(clienteActual, carritoTemporal);
         if (exito) {
             JOptionPane.showMessageDialog(this, "Venta registrada correctamente.");
             cargarTablaVentas();

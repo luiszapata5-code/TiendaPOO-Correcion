@@ -1,6 +1,7 @@
 package com.zapataluis.tiendapoo.correcion.view;
 
 import com.zapataluis.tiendapoo.correcion.model.Producto;
+import com.zapataluis.tiendapoo.servicio.IProductoServicio;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -8,11 +9,12 @@ import javax.swing.table.DefaultTableModel;
 public class PanelProducto extends javax.swing.JPanel {
 
    
-    private final SistemaVentas sistema;
+    private final IProductoServicio productoServicio;
+    private int idProductoEnEdicion = -1;
     private final DefaultTableModel modelo;
 
-    public PanelProducto(SistemaVentas sistema) {
-        this.sistema = sistema;
+    public PanelProducto(IProductoServicio productoServicio) {
+        this.productoServicio = productoServicio;
         initComponents();
         txtCodigo.setPreferredSize(new java.awt.Dimension(200, 25));
         txtNombre.setPreferredSize(new java.awt.Dimension(200, 25));
@@ -33,7 +35,7 @@ public class PanelProducto extends javax.swing.JPanel {
 
     public void cargarTabla() {
         modelo.setRowCount(0);
-        for (Producto p : sistema.getProductos()) {
+        for (Producto p : productoServicio.getProductos()) {
             Object[] fila = {
                 p.getId(),
                 p.getNombre(),
@@ -242,7 +244,7 @@ public class PanelProducto extends javax.swing.JPanel {
                 return;
             }
 
-            int idProducto = sistema.registrarProducto(codigo, nombre, talla, color, precio, stock);
+            int idProducto = productoServicio.registrarProducto(codigo, nombre, talla, color, precio, stock);
             JOptionPane.showMessageDialog(this, "Producto registrado con éxito. ID: " + idProducto,
                     "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
             cargarTabla();
@@ -274,7 +276,7 @@ int confirmacion = JOptionPane.showConfirmDialog(this,
         JOptionPane.YES_NO_OPTION);
 
 if (confirmacion == JOptionPane.YES_OPTION) {
-    sistema.eliminarProducto(id);
+    productoServicio.eliminarProducto(id);
     cargarTabla();
     limpiarFormulario();
     JOptionPane.showMessageDialog(this, "Producto eliminado correctamente.");
@@ -282,7 +284,43 @@ if (confirmacion == JOptionPane.YES_OPTION) {
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        
+        
+        
+        if (idProductoEnEdicion == -1) {
+        JOptionPane.showMessageDialog(this, 
+            "Primero haz clic en un cliente de la tabla para seleccionarlo.");
+        return;
+    }
+
+    try {
+            String nombre = txtNombre.getText().trim();
+            String talla = txtTalla.getText().trim();
+            String color = txtColor.getText().trim();
+            String codigo = txtCodigo.getText().trim();
+            int precio = Integer.parseInt(txtPrecio.getText().trim());
+            int stock = Integer.parseInt(txtStock.getText().trim());
+
+        if (nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
+            return;
+        }
+
+        boolean exito = productoServicio.editarProducto(WIDTH, codigo, nombre, talla, color, precio, stock);
+
+        if (exito) {
+            JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente.");
+            cargarTabla();
+            limpiarFormulario();
+            idProductoEnEdicion = -1; // resetear
+        } else {
+            JOptionPane.showMessageDialog(this, "No se encontró el cliente.");
+        }
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
+    }
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
