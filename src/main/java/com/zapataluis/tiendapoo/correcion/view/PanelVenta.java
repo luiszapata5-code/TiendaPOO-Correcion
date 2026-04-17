@@ -286,6 +286,19 @@ public class PanelVenta extends javax.swing.JPanel {
 
            clienteActual = clienteServicio.buscarClientePorId(idUsuario);
            Producto p = productoServicio.buscarProductoPorNombre(nombre);
+           
+           
+           
+           if (clienteActual == null) {
+              JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
+               return;
+            }
+
+           
+             if (p== null) {
+             JOptionPane.showMessageDialog(this, "Producto no encontrado.");
+             return;
+            }
 
            // Verificar stock acumulado en carrito (bug de doble reserva)
            int yaEnCarrito = carritoTemporal.stream()
