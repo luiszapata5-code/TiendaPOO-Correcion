@@ -15,7 +15,7 @@ public interface IClienteServicio {
     // registra un cliente y retorna el id (int)
     int RegistrarCliente(String nombre,int edad,String correo);
     // edita un cliente y retorna un valor boolean para saver si encontro el cliente
-    boolean EditarCliente(String nombre,int edad,String correo);
+    boolean EditarCliente(int id,String nombre,int edad,String correo);
     // elimina un cliente y retorna un valor boolena para saber si lo encontro
     boolean EliminarCliente(int id);
      // Retorna la lista de todos los clientes
