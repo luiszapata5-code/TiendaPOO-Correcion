@@ -19,7 +19,23 @@ public class ClienteServicio implements IClienteServicio{
 
     @Override
     public int RegistrarCliente(String nombre, int edad, String correo) {
-        // se llaman los metodos o contratos implementados en cada interface para que cumplan con lo prometido
+        
+        
+        if (edad <= 0 || edad > 120) {
+            throw new IllegalArgumentException("La edad debe ser mayor que 0 y menor que 120");
+        }
+
+        if (nombre.isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede estar vacío");
+        }
+        
+        if(correo.isEmpty()){
+        throw new IllegalArgumentException("El correo no puede estar vacío");
+        }
+        
+
+
+// se llaman los metodos o contratos implementados en cada interface para que cumplan con lo prometido
        int id = contadorId++;
        clientes.add(new Cliente(id,nombre,edad,correo));
        return id;

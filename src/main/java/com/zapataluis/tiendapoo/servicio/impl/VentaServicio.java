@@ -22,12 +22,17 @@ public class VentaServicio implements IVentaServicio {
         if (cliente == null || detalles == null || detalles.isEmpty()) {
             return false;
         }
+        
+        
+        
+        
 
         // Validar stock de todos los productos antes de confirmar
         for (DetalleVenta d : detalles) {
             if (d.getProducto().getStock() < d.getCantidad()) {
                 return false;
             }
+            
         }
 
         // Calcular total y descontar stock

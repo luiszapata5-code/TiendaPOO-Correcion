@@ -267,9 +267,10 @@ public class PanelProducto extends javax.swing.JPanel {
             cargarTabla();
             limpiarFormulario();
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Precio y stock deben ser números válidos.");
-        }
+        } catch (IllegalArgumentException e) {
+    // Captura las validaciones del servicio
+    JOptionPane.showMessageDialog(this, e.getMessage());
+}
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void txtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoActionPerformed

@@ -20,7 +20,16 @@ public class ProductoService implements IProductoServicio {
 
     @Override
     public int registrarProducto(String codigo, String nombre, String talla, String color, double precio, int stock) {
-    int id = contadorId++;
+        if(stock<0){
+        throw new IllegalArgumentException("El stock no puede ser negativo");
+        
+        }
+        
+        if(precio<0){
+        throw new IllegalArgumentException("El precio no puede ser negativo");
+        }
+        
+        int id = contadorId++;
         productos.add(new Producto(id, codigo, nombre, talla, color, precio, stock));
         return id;
     }

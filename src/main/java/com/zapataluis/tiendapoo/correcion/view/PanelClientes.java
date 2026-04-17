@@ -224,11 +224,14 @@ public class PanelClientes extends javax.swing.JPanel {
             String nombre = txtNombre.getText().trim();
             int edad = Integer.parseInt(txtEdad.getText().trim());
             String correo = txtCorreo.getText().trim();
+            
 
             if (nombre.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "El nombre no puede estar vacío.");
                 return;
             }
+            
+            
 
          
             int idCliente = clienteServicio.RegistrarCliente(nombre, edad, correo);
@@ -236,9 +239,10 @@ public class PanelClientes extends javax.swing.JPanel {
             limpiarFormulario();
             JOptionPane.showMessageDialog(null, "Cliente registrado. Tu ID: " + idCliente);
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "La edad debe ser un número válido.");
-        }
+        } catch (IllegalArgumentException e) {
+    // Captura las validaciones del servicio
+    JOptionPane.showMessageDialog(this, e.getMessage());
+}
     }//GEN-LAST:event_btnRegistrarActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
