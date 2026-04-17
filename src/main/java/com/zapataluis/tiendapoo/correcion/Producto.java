@@ -7,10 +7,10 @@ public class Producto {
     private String nombre;
     private String talla;
     private String color;
-    private int precio;
+    private double precio;
     private int stock;
 
-    public Producto(int id, String codigo, String nombre, String talla, String color, int precio, int stock) {
+    public Producto(int id, String codigo, String nombre, String talla, String color, double precio, int stock) {
         this.id = id;
         this.codigo = codigo;
         this.nombre = nombre;
@@ -36,7 +36,7 @@ public class Producto {
     public void setColor(String color) { this.color = color; }
 
     public double getPrecio() { return precio; }
-    public void setPrecio(int precio) { this.precio = precio; }
+    public void setPrecio(double precio) { this.precio = precio; }
 
     public int getStock() { return stock; }
     public void setStock(int stock) { this.stock = stock; }

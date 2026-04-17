@@ -4,10 +4,21 @@
  */
 package com.zapataluis.tiendapoo.servicio;
 
+import com.zapataluis.tiendapoo.correcion.Cliente;
+import com.zapataluis.tiendapoo.correcion.DetalleVenta;
+import com.zapataluis.tiendapoo.correcion.Venta;
+import java.util.List;
+
 /**
  *
  * @author Admin
  */
 public interface IVentaServicio {
+  // Registra una venta completa con su lista de productos
+    // Retorna true si se registró correctamente
+    boolean registrarVenta(Cliente cliente, List<DetalleVenta> detalles);
+    
+    // Retorna el historial de todas las ventas
+    List<Venta> getVentas();
     
 }
