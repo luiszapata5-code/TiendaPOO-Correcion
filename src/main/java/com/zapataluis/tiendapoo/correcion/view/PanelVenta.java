@@ -29,6 +29,7 @@ public class PanelVenta extends javax.swing.JPanel {
     private final IProductoServicio productoServicio;
     private final IVentaServicio ventaServicio;
     private final ArrayList<DetalleVenta> carritoTemporal = new ArrayList<>();
+    
 
    
     private Cliente clienteActual = null;
@@ -289,6 +290,7 @@ public class PanelVenta extends javax.swing.JPanel {
            
            
            
+           
            if (clienteActual == null) {
               JOptionPane.showMessageDialog(this, "Cliente no encontrado.");
                return;
@@ -299,16 +301,14 @@ public class PanelVenta extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(this, "Producto no encontrado.");
              return;
             }
+             
+        
 
            // Verificar stock acumulado en carrito (bug de doble reserva)
-           int yaEnCarrito = carritoTemporal.stream()
-           .filter(d -> d.getProducto().getId() == p.getId())
-           .mapToInt(DetalleVenta::getCantidad)
-           .sum();
-           if (cantidad + yaEnCarrito > p.getStock()) {
-             JOptionPane.showMessageDialog(this, "Stock insuficiente. Ya tienes " + yaEnCarrito + " en carrito.");
-             return;
-           }
+          if (!ventaServicio.hayStockSuficiente(p, cantidad, carritoTemporal)) {
+    JOptionPane.showMessageDialog(this, "Stock insuficiente para ese producto.");
+    return;
+}
 
             carritoTemporal.add(new DetalleVenta(p, cantidad)); 
             actualizarTablaCarrito();
@@ -331,6 +331,10 @@ public class PanelVenta extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "El carrito está vacío. Agrega productos primero.");
             return;
         }
+        
+        
+       
+
 
         boolean exito = ventaServicio.registrarVenta(clienteActual, carritoTemporal);
         if (exito) {

@@ -49,6 +49,20 @@ public class VentaServicio implements IVentaServicio {
         return true;
     
     }
+    
+    public boolean hayStockSuficiente(Producto producto, int cantidad, List<DetalleVenta> carrito) {
+    int yaEnCarrito = 0;
+    
+    // recorre el carrito sumando lo que ya hay del mismo producto
+    for (DetalleVenta d : carrito) {
+        if (d.getProducto().getId() == producto.getId()) {
+            yaEnCarrito = yaEnCarrito + d.getCantidad();
+        }
+    }
+    
+    // retorna true si hay suficiente stock
+    return (cantidad + yaEnCarrito) <= producto.getStock();
+}
 
     @Override
     public List<Venta> getVentas() {

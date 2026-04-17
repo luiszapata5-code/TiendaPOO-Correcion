@@ -6,6 +6,7 @@ package com.zapataluis.tiendapoo.servicio;
 
 import com.zapataluis.tiendapoo.correcion.model.Cliente;
 import com.zapataluis.tiendapoo.correcion.model.DetalleVenta;
+import com.zapataluis.tiendapoo.correcion.model.Producto;
 import com.zapataluis.tiendapoo.correcion.model.Venta;
 import java.util.List;
 
@@ -17,6 +18,8 @@ public interface IVentaServicio {
   // Registra una venta completa con su lista de productos
     // Retorna true si se registró correctamente
     boolean registrarVenta(Cliente cliente, List<DetalleVenta> detalles);
+    
+    boolean hayStockSuficiente(Producto producto, int cantidad, List<DetalleVenta> carrito);
     
     // Retorna el historial de todas las ventas
     List<Venta> getVentas();
