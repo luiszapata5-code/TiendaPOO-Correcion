@@ -15,11 +15,11 @@ import java.util.List;
 public class ClienteServicio implements IClienteServicio{
     
     private final List<Cliente> clientes = new ArrayList<>();
-    private int contadorId = 1; // IDs incrementales, sin Random
+    private int contadorId = 1; // IDs incrementales, sin Random para evitar IDs repetridos
 
     @Override
     public int RegistrarCliente(String nombre, int edad, String correo) {
-        
+        // se llaman los metodos o contratos implementados en cada interface para que cumplan con lo prometido
        int id = contadorId++;
        clientes.add(new Cliente(id,nombre,edad,correo));
        return id;
@@ -28,7 +28,7 @@ public class ClienteServicio implements IClienteServicio{
 
     @Override
     public boolean EditarCliente(int id,String nombre, int edad, String correo) {
-        for (Cliente c: clientes){
+        for (Cliente c: clientes){// para una variable iteradora c se tipo objeto en la lista clientes
         if(c.getId()==id){
             c.setNombre(nombre);
             c.setEdad(edad);
