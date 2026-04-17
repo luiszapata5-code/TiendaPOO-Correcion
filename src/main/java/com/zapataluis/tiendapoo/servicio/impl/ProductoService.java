@@ -20,6 +20,7 @@ public class ProductoService implements IProductoServicio {
 
     @Override
     public int registrarProducto(String codigo, String nombre, String talla, String color, double precio, int stock) {
+        // validaciones
         if(stock<0){
         throw new IllegalArgumentException("El stock no puede ser negativo");
         

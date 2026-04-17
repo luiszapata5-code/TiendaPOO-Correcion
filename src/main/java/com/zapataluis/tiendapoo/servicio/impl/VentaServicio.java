@@ -50,6 +50,7 @@ public class VentaServicio implements IVentaServicio {
     
     }
     
+    @Override
     public boolean hayStockSuficiente(Producto producto, int cantidad, List<DetalleVenta> carrito) {
     int yaEnCarrito = 0;
     

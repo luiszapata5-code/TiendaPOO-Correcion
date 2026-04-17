@@ -9,6 +9,7 @@ public class Producto {
     private String color;
     private double precio;
     private int stock;
+    // se crean todas las variables de caracter privado para la clase productp
 
     public Producto(int id, String codigo, String nombre, String talla, String color, double precio, int stock) {
         this.id = id;
@@ -17,8 +18,9 @@ public class Producto {
         this.talla = talla;
         this.color = color;
         this.precio = precio;
-        this.stock = stock;
+        this.stock = stock;// se crea el constructor
     }
+    // getandsetters
 
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

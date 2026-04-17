@@ -17,10 +17,10 @@ public class ClienteServicio implements IClienteServicio{
     private final List<Cliente> clientes = new ArrayList<>();
     private int contadorId = 1; // IDs incrementales, sin Random para evitar IDs repetridos
 
-    @Override
+    @Override //heredamos y redifinimos los metodos de la clase padre o en este caso de la interface
     public int RegistrarCliente(String nombre, int edad, String correo) {
         
-        
+        // hacemos validaciones simples para evitar errores
         if (edad <= 0 || edad > 120) {
             throw new IllegalArgumentException("La edad debe ser mayor que 0 y menor que 120");
         }

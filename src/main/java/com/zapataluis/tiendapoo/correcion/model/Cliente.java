@@ -6,13 +6,15 @@ public class Cliente {
     private String nombre;
     private int edad;
     private String correo;
+   // se crean las variables de la clase cliente privadas 
 
-    public Cliente(int id, String nombre, int edad,String correo) {
+    public Cliente(int id, String nombre, int edad,String correo) {// se crea el constructor
         this.id = id;
         this.nombre = nombre;
         this.edad = edad;
         this.correo=correo;
     }
+    // se crean los getandsetters
 
     public String getCorreo() {
         return correo;
