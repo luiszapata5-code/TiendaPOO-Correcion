@@ -4,25 +4,31 @@
  */
 package com.zapataluis.tiendapoo.correcion.view;
 
-import com.zapataluis.tiendapoo.correcion.view.PanelVenta;
-import com.zapataluis.tiendapoo.correcion.view.PanelProducto;
-import com.zapataluis.tiendapoo.correcion.view.PanelClientes;
+import com.zapataluis.tiendapoo.servicio.IClienteServicio;
+import com.zapataluis.tiendapoo.servicio.IProductoServicio;
+import com.zapataluis.tiendapoo.servicio.IVentaServicio;
+import com.zapataluis.tiendapoo.servicio.impl.ClienteServicio;
+import com.zapataluis.tiendapoo.servicio.impl.ProductoService;
+import com.zapataluis.tiendapoo.servicio.impl.VentaServicio;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VentanaPrincipal.class.getName());
-
-    private SistemaVentas sistema;
+    private IClienteServicio clienteServicio;
+    private IProductoServicio productoServicio;
+    private IVentaServicio ventaServicio;
       private javax.swing.JTabbedPane pestanas;
     public VentanaPrincipal() {
-        sistema = new SistemaVentas();
+        clienteServicio = new ClienteServicio();
+        productoServicio = new ProductoService();
+         ventaServicio = new VentaServicio();
         initComponents();
         
-        pestanas.addTab("Clientes",  new PanelClientes(sistema));
-        pestanas.addTab("Productos", new PanelProducto(sistema));
-        pestanas.addTab("Ventas",    new PanelVenta(sistema));
+     pestanas.addTab("Clientes",  new PanelClientes(clienteServicio));
+    pestanas.addTab("Productos", new PanelProducto(productoServicio));
+    pestanas.addTab("Ventas",    new PanelVenta(clienteServicio, productoServicio, ventaServicio));
         
     }
 
