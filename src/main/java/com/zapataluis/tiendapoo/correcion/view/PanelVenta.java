@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package com.zapataluis.tiendapoo.correcion;
+package com.zapataluis.tiendapoo.correcion.view;
 
+import com.zapataluis.tiendapoo.correcion.model.Producto;
+import com.zapataluis.tiendapoo.correcion.model.Venta;
+import com.zapataluis.tiendapoo.correcion.model.Cliente;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;

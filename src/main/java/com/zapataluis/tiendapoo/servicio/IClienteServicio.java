@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
 package com.zapataluis.tiendapoo.servicio;
-import com.zapataluis.tiendapoo.correcion.Cliente;
+import com.zapataluis.tiendapoo.correcion.model.Cliente;
 import java.util.List;
 
 // anteriormente no habiamos agregado interfaces violando 2 principios SOLID ISP OCP 

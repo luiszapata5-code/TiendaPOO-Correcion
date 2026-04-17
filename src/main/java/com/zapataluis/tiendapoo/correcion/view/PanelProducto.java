@@ -1,5 +1,6 @@
-package com.zapataluis.tiendapoo.correcion;
+package com.zapataluis.tiendapoo.correcion.view;
 
+import com.zapataluis.tiendapoo.correcion.model.Producto;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 

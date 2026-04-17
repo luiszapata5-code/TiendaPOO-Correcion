@@ -6,7 +6,7 @@ package com.zapataluis.tiendapoo.servicio.impl;
 
 // una clase servicio o un paqute impl lo que hace es "cumplir con el contrato del interfaz" en potras palabras hacer que los metodos funcionen con lo entregado y devuelvan lo pedido
 
-import com.zapataluis.tiendapoo.correcion.Cliente;
+import com.zapataluis.tiendapoo.correcion.model.Cliente;
 import com.zapataluis.tiendapoo.servicio.IClienteServicio;
 import java.util.ArrayList;
 import java.util.List;

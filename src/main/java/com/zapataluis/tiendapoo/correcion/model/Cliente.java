@@ -1,4 +1,4 @@
-package com.zapataluis.tiendapoo.correcion;
+package com.zapataluis.tiendapoo.correcion.model;
 
 public class Cliente {
    

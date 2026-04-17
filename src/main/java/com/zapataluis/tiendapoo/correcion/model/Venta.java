@@ -1,5 +1,6 @@
-package com.zapataluis.tiendapoo.correcion;
+package com.zapataluis.tiendapoo.correcion.model;
 
+import com.zapataluis.tiendapoo.correcion.model.Cliente;
 import java.util.ArrayList;
 
 

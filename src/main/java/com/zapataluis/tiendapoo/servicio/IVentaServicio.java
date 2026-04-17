@@ -4,9 +4,9 @@
  */
 package com.zapataluis.tiendapoo.servicio;
 
-import com.zapataluis.tiendapoo.correcion.Cliente;
-import com.zapataluis.tiendapoo.correcion.DetalleVenta;
-import com.zapataluis.tiendapoo.correcion.Venta;
+import com.zapataluis.tiendapoo.correcion.model.Cliente;
+import com.zapataluis.tiendapoo.correcion.model.DetalleVenta;
+import com.zapataluis.tiendapoo.correcion.model.Venta;
 import java.util.List;
 
 /**

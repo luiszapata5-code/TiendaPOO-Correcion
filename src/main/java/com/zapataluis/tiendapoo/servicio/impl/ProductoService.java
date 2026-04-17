@@ -4,7 +4,7 @@
  */
 package com.zapataluis.tiendapoo.servicio.impl;
 
-import com.zapataluis.tiendapoo.correcion.Producto;
+import com.zapataluis.tiendapoo.correcion.model.Producto;
 import com.zapataluis.tiendapoo.servicio.IProductoServicio;
 import java.util.ArrayList;
 import java.util.List;
