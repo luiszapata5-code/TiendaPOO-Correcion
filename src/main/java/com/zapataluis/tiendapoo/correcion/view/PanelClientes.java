@@ -5,18 +5,19 @@
 package com.zapataluis.tiendapoo.correcion.view;
 
 import com.zapataluis.tiendapoo.correcion.model.Cliente;
+import com.zapataluis.tiendapoo.servicio.IClienteServicio;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
 public class PanelClientes extends javax.swing.JPanel {
 
-   private final SistemaVentas sistema;
+   private final IClienteServicio clienteServicio;
    private final DefaultTableModel modelo;
    private int idClienteEnEdicion = -1;
    
-    public PanelClientes(SistemaVentas sistema) {
-    this.sistema = sistema;
+    public PanelClientes(IClienteServicio clienteServicio) {
+    this.clienteServicio = clienteServicio;
     initComponents();
     txtNombre.setPreferredSize(new java.awt.Dimension(200, 25));
     txtEdad.setPreferredSize(new java.awt.Dimension(200, 25));
@@ -40,7 +41,7 @@ public class PanelClientes extends javax.swing.JPanel {
 
     modelo.setRowCount(0);
 
-    for(Cliente c : sistema.getClientes()){
+    for(Cliente c : clienteServicio.getCliente()){
 
         Object[] fila = {
             c.getId(),
@@ -230,7 +231,7 @@ public class PanelClientes extends javax.swing.JPanel {
             }
 
          
-            int idCliente = sistema.registrarCliente(nombre, edad, correo);
+            int idCliente = clienteServicio.RegistrarCliente(nombre, edad, correo);
             cargarTabla();
             limpiarFormulario();
             JOptionPane.showMessageDialog(null, "Cliente registrado. Tu ID: " + idCliente);
@@ -259,7 +260,7 @@ int confirmacion = JOptionPane.showConfirmDialog(this,
         JOptionPane.YES_NO_OPTION);
 
 if (confirmacion == JOptionPane.YES_OPTION) {
-    sistema.eliminarCliente(id);
+    clienteServicio.EliminarCliente(id);
     cargarTabla();
     limpiarFormulario();
     JOptionPane.showMessageDialog(this, "Cliente eliminado correctamente.");
@@ -284,7 +285,7 @@ if (confirmacion == JOptionPane.YES_OPTION) {
             return;
         }
 
-        boolean exito = sistema.editarCliente(idClienteEnEdicion, nombre, edad, correo);
+        boolean exito = clienteServicio.EditarCliente(edad, nombre, edad, correo);
 
         if (exito) {
             JOptionPane.showMessageDialog(this, "Cliente actualizado correctamente.");
